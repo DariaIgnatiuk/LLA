@@ -1,0 +1,12 @@
+{
+  "name": "hackathonlla",
+  "version": "1.0.0",
+  "description": "Hackathon #2 - Language Learning Assistant",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Alexander Sarnov, Daria Ignatiuk",
+  "license": "ISC"
+}
