@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLA</title>
+    <script src="/static/staticjs/script.js" defer></script>
+	<link rel="stylesheet" href="/static/css/styles.css">
+
+</head>
+<body onLoad="addStudySets()">
+
+<h2>Welcome to LLA!</h2>
+
+<div id="choosingSet">
+    <p>Please choose a word set you whould like to study:</p>
+    <select id="studySets"  oninput="showGames()">
+        <option>choose</option>
+    </select>
+</div>
+<br>
+<div id="gamesSection">
+    <div id="gameLinks">
+        <div class="game">
+            <p>Match Words</p>
+            <a>
+                <img src="/static/images/MatchingWordsLogo.png" class="logo">
+            </a>
+        </div>
+        <div class="game">
+            <p>Choose Correct Word</p>
+            <a>
+                <img src="/static/images/ChooseCorrectWordogo.png" class="logo">
+            </a>
+        </div>
+    </div> 
+    <div id="comment"></div>
+</div>
+
+</body>
+</html>

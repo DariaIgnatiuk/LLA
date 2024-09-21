@@ -128,3 +128,5 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+config/halogen-obelisk-436107-n4-572df31b796f.json

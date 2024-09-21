@@ -8,5 +8,14 @@
   },
   "keywords": [],
   "author": "Alexander Sarnov, Daria Ignatiuk",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/text-to-speech": "^5.4.0",
+    "body-parser": "^1.20.3",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.21.0",
+    "fs": "^0.0.1-security",
+    "pg": "^8.13.0"
+  }
 }

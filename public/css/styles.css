@@ -1,1 +1,48 @@
-/* styles */
+.logo{
+    height: 100px;
+}
+
+#gamesSection{
+    display: none;
+}
+#gameLinks{
+    display:flex;
+    flex-direction: row;
+}
+
+.game{
+    margin:20px;
+}
+
+
+#matchGameContainer{
+    display:flex;
+    flex-direction: row;
+}
+
+    
+#column{
+    display:flex;
+    flex-direction: column;
+} 
+
+
+.matchCard{
+    margin:5px;
+    width: 200px;
+    height: 45px;
+    border: 1px solid black;
+    border-radius: 10px;
+    text-align: center;
+}
+
+#optionsInEng{
+    display:flex;
+    flex-direction: row;
+}
+
+#oneWordInHeb {
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+}
