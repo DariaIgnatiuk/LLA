@@ -5,38 +5,48 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LLA</title>
-    <script src="/static/staticjs/script.js" defer></script>
-	<link rel="stylesheet" href="/static/css/styles.css">
+    <script src="/public/staticjs/script.js" defer></script>
+    <script src="/public/staticjs/chooseCorrectWordScript.js" defer></script>
+    <script src="/public/staticjs/utils/utils.js" defer></script>
+	<link rel="stylesheet" href="/public/css/styles.css">
 
 </head>
 <body onLoad="addStudySets()">
 
-<h2>Welcome to LLA!</h2>
+<div class="header">    
+
+<h1>Welcome to Learn Hebrew!</h1>
+<h4>Here you can learn Hebrew words when playing fun games!</h4>
+</div>
 
 <div id="choosingSet">
-    <p>Please choose a word set you whould like to study:</p>
+    <p>Step 1. Choose a word set you whould like to study.</p>
     <select id="studySets"  oninput="showGames()">
         <option>choose</option>
     </select>
 </div>
 <br>
 <div id="gamesSection">
+    <p id="chooseMessage">Step 2. Choose a game.</p>
     <div id="gameLinks">
         <div class="game">
             <p>Match Words</p>
             <a>
-                <img src="/static/images/MatchingWordsLogo.png" class="logo">
+                <img src="/public/images/MatchingWordsLogo.png" class="logo">
             </a>
         </div>
         <div class="game">
             <p>Choose Correct Word</p>
             <a>
-                <img src="/static/images/ChooseCorrectWordogo.png" class="logo">
+                <img src="/public/images/ChooseCorrectWordogo.png" class="logo">
             </a>
         </div>
     </div> 
     <div id="comment"></div>
 </div>
+
+<%- include('partials/footer') %>
+
 
 </body>
 </html>

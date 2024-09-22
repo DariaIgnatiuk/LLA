@@ -5,27 +5,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Choose Correct Word</title>
-    <script src="/static/staticjs/chooseCorrectWordScript.js" defer></script>
-	<link rel="stylesheet" href="/static/css/styles.css">
+    <script src="/public/staticjs/chooseCorrectWordScript.js" defer></script>
+    <script src="/public/staticjs/utils/utils.js" defer></script>
+	<link rel="stylesheet" href="/public/css/styles.css">
 
 </head>
 <body>
 
-<h2>Choose Correct Word</h2>
-<button onclick="setupChooseWordGame()" id="startGameButton">Start Game</button>
-<br><br>
+<%- include('partials/header') %>
 
+<div class="header">
+    <h2>Choose Correct Word</h2>
+    <button onclick="setupChooseWordGame()" id="startGameButton">Start Game</button>
+</div>
+<br>
 <div id="chooseGameContainer">
-    <div id="oneWordInHeb">
-    </div>
-    <div id="optionsInEng">
-    </div>
+    <div id="oneWordInHeb"></div>
+    <div id="optionsInEng"></div>
 </div>
 
-<div id="gameResult"><div>
 
+<div id="gameResult"></div>
 
-
-
+<%- include('partials/footer') %>
 </body>
 </html>

@@ -4,27 +4,40 @@ let index = 0;
 let randomNumbers = [];
 const numberOfOptions = 3;
 let numberOfPairsGuessed = 0;
+let studySet = '';
 
 
-const apiRequest = async (url,options) => {
-    try {
-        const res = await fetch (url,options);
-        const data = await res.json();  
-        return data;
-    } catch (error) {
-        console.log(error);
+const postResults = async (name, timeResult) => {
+    const options = {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json",
+        },
+        body: JSON.stringify({  
+            "username": name,
+            "set_name": studySet,
+            "game_name": "Choose Correct Word",
+            "correct_answers": numberOfPairsGuessed,
+            "time_spent": timeResult})
     }
+    apiRequest('http://localhost:3000/api/playerstatistics', options)
 }
 
 const finishGame = () => {
+    // stop the timer
     const endTime = performance.now();
+    // calculate the time
     const elapsedTime = endTime - startTime;
     const timeResult = elapsedTime / 1000;
+    //get the user's name
+    //!! This is for posting
+    // const name = prompt('Please enter your name:');
+    // postResults(name, timeResult);
+    //remove fields for the cards
+    document.getElementById("chooseGameContainer").innerHTML = '';
     // display the results
-    document.getElementById('gameResult').innerHTML = `Game took ${timeResult.toFixed(3)} seconds you guessed ${numberOfPairsGuessed} words correctly`;
+    document.getElementById('gameResult').innerHTML = `<div>Game took ${timeResult.toFixed(3)} seconds you guessed ${numberOfPairsGuessed} words correctly</div>`;
     // rename the Start game button to Play again and show it
-    document.getElementById('oneWordInHeb').innerHTML = '';
-    document.getElementById('optionsInEng').innerHTML = '';
     button.innerHTML = 'Play again';
     button.style.display = 'inline';
 }
@@ -56,46 +69,41 @@ const getRepliesArray = () => {
 }
 
 const checkAnswer = (e, id) => {
+    // check if the clicked word is the correct answer
     if (id === wordsArray[randomNumbers[index]].id){
+        // increase the number of pairs guessed
         numberOfPairsGuessed ++;
-        // document.getElementById('gameResult').innerHTML = 'correct!';
+        // change the color of the clicked word to green
         e.target.style.backgroundColor = 'lightGreen';
         setTimeout(function() {
-            e.target.style.backgroundColor = 'white';
+            //start the next round
             gameRound();
-        }, 1000); 
+        }, 500); 
     } 
-    else {
-        // document.getElementById('gameResult').innerHTML = 'wrong!';
+    else { // if the clicked word is not the correct answer
+        // change the color of the clicked word to red
         e.target.style.backgroundColor = 'red';
         setTimeout(function() {
-            e.target.style.backgroundColor = 'white';
+            //start the next round
             gameRound();
-        }, 1000); 
+        }, 500); 
     }
+    // increase the index - go to th next Hebrew word
     index ++;
-
 }
 
 function playSound() {
-    console.log('hello');
-    
-//   const audio = wordsArray[randomNumbers[index]].audio;
   const audio = document.getElementById('myAudio');
   audio.play();
 }
 
 const gameRound = () => {
-    document.getElementById('gameResult').innerHTML = '';
     if (index === randomNumbers.length -1) {
         finishGame();
     }
     else{
-        console.log(wordsArray[randomNumbers[index]].audio_file);
-        
-        document.getElementById('oneWordInHeb').innerHTML = `<div class="matchCard" onClick="playSound()">${wordsArray[randomNumbers[index]].hebrew}</div>
-        <audio id="myAudio"><source src="${wordsArray[randomNumbers[index]].audio_file}" type="audio/mpeg"></audio>`;
-        // document.getElementById('oneWordInHeb').innerHTML = `<div class="matchCard" onClick="playSound()">${wordsArray[randomNumbers[index]].hebrew}</div>`;
+        document.getElementById('oneWordInHeb').innerHTML = `<div class="matchCard" onClick="playSound()">▶️ ${wordsArray[randomNumbers[index]].hebrew}</div>
+        <audio id="myAudio"><source src="${wordsArray[randomNumbers[index]].audio_file}" type="audio/mpeg"></audio><br><p>Choose the correct translation of this word: </p>`;
         let array = getRepliesArray();
         let html = ``;
         for (const word of array) {
@@ -105,9 +113,7 @@ const gameRound = () => {
     }
 }
 
-
-const startGame = (data) => {
-    //hide the previous game score
+const startGame = (data) => {  
     document.getElementById('gameResult').innerHTML = '';
     //get the words from the server
     wordsArray = data;
@@ -117,25 +123,15 @@ const startGame = (data) => {
     gameRound();
 }
 
-
-
-const gettheWords = async (studySet) => {
-    await apiRequest(`http://localhost:3000/card-sets/${studySet}/words`)
-    .then(data => {
-        startGame(data);
-    })
-    .catch(error => console.log(error))
-}
-
 //onCliclk on the start button
 const setupChooseWordGame = () => {
-    // hide the results of the previous game
-    document.getElementById('gameResult').innerHTML = '';
     // hide the start game button
     button.style.display = 'none';
     // reset the variables
     numberOfPairsGuessed = 0;
     index = 0;
+    // add fields for cards
+    document.getElementById("chooseGameContainer").innerHTML = `<div id="oneWordInHeb"></div><div id="optionsInEng"></div>`
     // get the study set from the URL
     const url = new URL(window.location.href);
     studySet = url.searchParams.get('studySet');
@@ -144,16 +140,3 @@ const setupChooseWordGame = () => {
     // // start the timer
     startTime = performance.now();
 }
-
-//get an array of random numbers
-function getRandomNumbers(start, end) {
-    const numbers = [];
-    for (let i = start; i <= end; i++) {
-      numbers.push(i);
-    }
-    for (let i = numbers.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
-    }
-    return numbers;   
-  }

@@ -1,22 +1,22 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const wordRoutes = require('./routes/wordRoutes');
-const cardSetRoutes = require('./routes/cardSetRoutes');
-const gameRoutes = require('./routes/gameRoutes');
-const playerStatisticsRoutes = require('./routes/playerStatisticsRoutes');
-require('dotenv').config(); // Load environment variables from .env file
+const path = require('path');
+const logger = require('./utils/errorLogger'); // Import the errorLogger
+const pool = require('./config/db'); // Import the pool object
+const routes = require('./routes'); // Import the routes
+const middleware = require('./middleware/middleware'); // Import the middleware
+const errorHandler = require('./middleware/errorHandler'); // Import the errorHandler
 
-// Initialize Express app
 const app = express();
-const PORT = 3000;
 
-// Middleware to parse JSON bodies
-app.use(bodyParser.json());
+// Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(middleware);
 
 // Routes
 app.set('views', './views');
 app.set('view engine', 'ejs'); 
-app.use('/static', express.static('public'));
+app.use('/public', express.static('public'));
 
 app.get('/', (req, res) => {
   res.render('index');
@@ -27,13 +27,16 @@ app.get('/match-words', (req, res) => {
 app.get('/choose-word', (req, res) => {
     res.render('chooseCorrectWordGame');
   });
-app.use('/words', wordRoutes);
-app.use('/card-sets', cardSetRoutes);
-app.use('/games', gameRoutes);
-app.use('/player-statistics', playerStatisticsRoutes);
 
+app.use('/', routes);
 
-// Start the server
+// Error handling
+app.use(errorHandler);
+
+// Start server
+const PORT = process.env.PORT || 3000; // Use process.env.PORT
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
+
+module.exports = app;

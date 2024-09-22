@@ -1,5 +1,53 @@
+body{
+    background-color: lightgray;
+    color: #483D8B;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 24px;
+    height: 100%;
+    margin: 0;
+    min-height: 100vh;
+    position: relative;
+}
+
+
+nav{
+    color:#483D8B;
+    margin-left: 20px;
+}
+
+a{
+    text-decoration: none;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h4{
+    font-size: 28px;
+}
+
+#studySets{
+    color:#483D8B;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 19px;
+    height: 30px;
+    width: 200px;
+    background-color: lightgray;
+}
+
+#choosingSet{
+    margin-left: 70px;
+}
+
+#chooseMessage{
+    margin-left: 70px;
+}
 .logo{
-    height: 100px;
+    height: 150px;
 }
 
 #gamesSection{
@@ -8,16 +56,24 @@
 #gameLinks{
     display:flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .game{
     margin:20px;
 }
 
+.errorMessage{
+    color:red;
+    margin: 50px;
+}
 
 #matchGameContainer{
     display:flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
     
@@ -33,7 +89,12 @@
     height: 45px;
     border: 1px solid black;
     border-radius: 10px;
-    text-align: center;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    margin-left: 30px;
+    margin-right: 30px;
+    background-color: white;
 }
 
 #optionsInEng{
@@ -43,6 +104,49 @@
 
 #oneWordInHeb {
     display:flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
+}
+
+button{
+    color:#483D8B;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 19px;
+    background-color: lightblue;
+    height: 40px;
+    width: 200px;
+    border: 2px solid #483D8B;
+    border-radius: 10px;
+}
+
+#oneWordInHeb, #optionsInEng {
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    margin: 50px;
+}
+
+#gameResult{
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+}
+
+footer{
+    background-color: LightSlateGrey;
+    color: #483D8B;
+    font-size: 18px;
+    text-align: right;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#footer{
+    margin-right: 20px;
 }
