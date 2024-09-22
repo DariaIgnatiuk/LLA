@@ -130,3 +130,4 @@ dist
 .pnp.*
 
 config/halogen-obelisk-436107-n4-572df31b796f.json
+**.DS_Store

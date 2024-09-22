@@ -8,6 +8,6 @@ const { getAllWordsHandler, createWordHandler } = require('../controllers/wordCo
 router.get('/', getAllWordsHandler);
 
 // Route to create a new word
-router.post('/create', createWordHandler);
+router.post('/', createWordHandler);
 
 module.exports = router;

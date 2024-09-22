@@ -34,4 +34,15 @@ async function getWordsBySetName(setName) {
     }
 }
 
-module.exports = { getAllCardSets, getWordsBySetName };
+// Function to create a new card set
+async function createCardSet(setName) {
+    try {
+        const result = await db.query('INSERT INTO card_sets (set_name) VALUES ($1) RETURNING *', [setName]);
+        return result.rows[0];
+    } catch (error) {
+        logger.error('Error creating card set:', error);
+        throw error;
+    }
+}
+
+module.exports = { getAllCardSets, getWordsBySetName, createCardSet };
