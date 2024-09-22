@@ -6,6 +6,68 @@ const numberOfOptions = 3;
 let numberOfPairsGuessed = 0;
 let studySet = '';
 
+const getTopResults = async (name, timeResult) => {
+    apiRequest(`http://localhost:3000/api/playerstatistics/topresults/${studySet}/Choose%20Correct%20Word`)
+    .then((data)=>{
+        console.log(data);
+        let table = `
+        <table>
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>Correct Answers</th>
+              <th>Time Spent</th>
+            </tr>
+            <br>
+          </thead>
+          <tbody>
+            <tr>
+              <td>${data[0].username}</td>
+              <td>${data[0].correct_answers}</td>
+              <td>${data[0].time_spent}</td>
+            </tr>
+            <tr>
+              <td>${data[1].username}</td>
+              <td>${data[1].correct_answers}</td>
+              <td>${data[1].time_spent}</td>
+            </tr>
+            <tr>
+              <td>${data[2].username}</td>
+              <td>${data[2].correct_answers}</td>
+              <td>${data[2].time_spent}</td>
+            </tr>
+            <tr>
+              <td>${data[3].username}</td>
+              <td>${data[3].correct_answers}</td>
+              <td>${data[3].time_spent}</td>
+            </tr>
+            <tr>
+              <td>${data[4].username}</td>
+              <td>${data[4].correct_answers}</td>
+              <td>${data[4].time_spent}</td>
+            </tr>
+          </tbody>
+        </table> `
+        document.getElementById('statistics').innerHTML += table;
+    let inTop = false;
+    for (const user of data){
+        console.log(user);
+        
+        console.log(user.username, name);
+        console.log(user.correct_answers,numberOfPairsGuessed);
+        console.log(user.time_spent,timeResult);
+        if ((user.username === name) && (user.correct_answers === numberOfPairsGuessed) && (user.time_spent === timeResult.toFixed(4))){
+            inTop = true;
+        }
+        console.log(inTop);
+    }
+    if (inTop){document.getElementById('statistics').innerHTML += `<p>You are in top 5 😊 Congratulations!</p>`}
+    else {document.getElementById('statistics').innerHTML += `<p>You didn't get in top 5 😔 Better luck next time!</p>`}
+    }
+    )
+
+}
+
 
 const postResults = async (name, timeResult) => {
     const options = {
@@ -29,14 +91,15 @@ const finishGame = () => {
     // calculate the time
     const elapsedTime = endTime - startTime;
     const timeResult = elapsedTime / 1000;
+        //remove fields for the cards
+        document.getElementById("chooseGameContainer").innerHTML = '';
+        // display the results
+        document.getElementById('gameResult').innerHTML = `<div>Game took you ${timeResult.toFixed(3)} seconds you guessed ${numberOfPairsGuessed} words correctly</div>`;
     //get the user's name
-    //!! This is for posting
-    // const name = prompt('Please enter your name:');
-    // postResults(name, timeResult);
-    //remove fields for the cards
-    document.getElementById("chooseGameContainer").innerHTML = '';
-    // display the results
-    document.getElementById('gameResult').innerHTML = `<div>Game took ${timeResult.toFixed(3)} seconds you guessed ${numberOfPairsGuessed} words correctly</div>`;
+    const name = prompt('Please enter your name:');
+    postResults(name, timeResult);
+    getTopResults(name, timeResult);
+
     // rename the Start game button to Play again and show it
     button.innerHTML = 'Play again';
     button.style.display = 'inline';
@@ -115,6 +178,7 @@ const gameRound = () => {
 
 const startGame = (data) => {  
     document.getElementById('gameResult').innerHTML = '';
+    document.getElementById('statistics').innerHTML = '';
     //get the words from the server
     wordsArray = data;
     //get the random numbers to show the Hebrew word

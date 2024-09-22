@@ -8,6 +8,6 @@ const { getAllGamesHandler, createGameHandler } = require('../controllers/gameCo
 router.get('/', getAllGamesHandler);
 
 // Route to create a new game
-router.post('/create', createGameHandler);
+router.post('/', createGameHandler);
 
 module.exports = router;

@@ -2,9 +2,13 @@
 
 const express = require('express');
 const router = express.Router();
-const playerStatisticsController = require('../controllers/playerStatisticsController');
+const addPlayerResult = require('../controllers/addPlayerResult');
+const getTopResults = require('../controllers/getTopResults');
 
-router.post('/playerstatistics', playerStatisticsController.addPlayerResult);
-router.get('/topresults/:set_name/:game_name', playerStatisticsController.getTopResults);
+// Route to add player result
+router.post('/', addPlayerResult);
+
+// Route to get top results
+router.get('/topresults/:set_name/:game_name', getTopResults);
 
 module.exports = router;

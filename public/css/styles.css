@@ -150,3 +150,9 @@ footer{
 #footer{
     margin-right: 20px;
 }
+
+#statistics{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
